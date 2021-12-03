@@ -1,15 +1,9 @@
-function possibleResults(arrayOfDice, mod) {
-  let arrayOfResults = [];
-
-  return arrayOfResults;
-}
-
-function parseDiceFormula(diceString) {
+function DiceFormula(formulaString) {
   let diceReg = /\d*d\d+/gi;
   let modReg = /[+-]\s*\d+$/;
   let arrayParsed = [];
   
-  let arrayDice = diceString.match(diceReg);
+  let arrayDice = formulaString.match(diceReg);
   arrayDice.forEach(element => {
     let count = 1;
     if (element.match(/\d*(?=d)/)[0]) {count = element.match(/\d*(?=d)/)[0]}
@@ -19,17 +13,32 @@ function parseDiceFormula(diceString) {
     }
   });
 
-  let mod = diceString.match(modReg)[0].replace(/ /g, '');
-  mod[0] === '-' ? mod = 0 - parseInt(mod.slice(1)) : mod = parseInt(mod.slice(1));
-  arrayParsed.push(mod);
-  
-  return arrayParsed;
+  this.mod = formulaString.match(modReg);
+  if (this.mod) {
+    this.mod = this.mod[0].replace(/ /g, '');
+    this.mod[0] === '-' ? this.mod = 0 - parseInt(this.mod.slice(1)) : this.mod = parseInt(this.mod.slice(1));
+  } else {
+    this.mod = 0;
+  }
+
+  this.dice = arrayParsed;
 }
+
+DiceFormula.prototype.possibleResults = function() {
+  let arrayOfResults = [];
+  let mod = 0;
+
+  let diceExpanded = [];
+  arrayParsed.forEach()
+
+
+  return arrayOfResults;
+};
 
 function Dice(sides) {
   this.sides = sides
 }
 
-Dice.prototype.roll {
+Dice.prototype.roll = function() {
   return Math.ceil(Math.random() * this.sides);
-}
+};
