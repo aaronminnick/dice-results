@@ -5,15 +5,25 @@ function possibleResults(arrayOfDice, mod) {
 }
 
 function parseDiceFormula(diceString) {
-  let arrayOfParsed = [];
-  let diceReg = /\d*d\d+/i;
-  let modReg = /(?<=[+-]\s*)\d$/;
-  let test = '1d4 + 2d6 + d8 - 5'
-  console.log(test.match(diceReg));
-  console.log(test.match(modReg));
+  let diceReg = /\d*d\d+/gi;
+  let modReg = /[+-]\s*\d+$/;
+  let arrayParsed = [];
+  
+  let arrayDice = diceString.match(diceReg);
+  arrayDice.forEach(element => {
+    let count = 1;
+    if (element.match(/\d*(?=d)/)[0]) {count = element.match(/\d*(?=d)/)[0]}
+    let sides = element.match(/d\d+/)[0];
+    for (let i = 1; i <= count; i++) {
+      arrayParsed.push(new Dice(sides))
+    }
+  });
 
-
-  return arrayOfParsed;
+  let mod = diceString.match(modReg)[0].replace(/ /g, '');
+  mod[0] === '-' ? mod = 0 - parseInt(mod.slice(1)) : mod = parseInt(mod.slice(1));
+  arrayParsed.push(mod);
+  
+  return arrayParsed;
 }
 
 function Dice(sides) {
