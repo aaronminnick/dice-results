@@ -9,7 +9,7 @@ function DiceFormula(formulaString) {
     if (element.match(/\d*(?=d)/)[0]) {count = element.match(/\d*(?=d)/)[0]}
     let sides = element.match(/d\d+/)[0];
     for (let i = 1; i <= count; i++) {
-      arrayParsed.push(new Dice(sides))
+      arrayParsed.push(new Die(sides))
     }
   });
 
@@ -29,7 +29,7 @@ DiceFormula.prototype.possibleResults = function() {
   let mod = 0;
 
   let diceExpanded = [];
-  this.dice.forEach((dice) => {
+  this.dice.forEach((die) => {
 
   });
 
@@ -39,16 +39,16 @@ DiceFormula.prototype.possibleResults = function() {
 
 DiceFormula.prototype.roll = function() {
   let total = this.mod;
-  this.dice.forEach((dice) =>{
-    total += dice.roll;
+  this.dice.forEach((die) =>{
+    total += die.roll;
   });
   return total;
 }
 
-function Dice(sides) {
+function Die(sides) {
   this.sides = sides
 }
 
-Dice.prototype.roll = function() {
+Die.prototype.roll = function() {
   return Math.ceil(Math.random() * this.sides);
 };
