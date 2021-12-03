@@ -29,11 +29,21 @@ DiceFormula.prototype.possibleResults = function() {
   let mod = 0;
 
   let diceExpanded = [];
-  arrayParsed.forEach()
+  this.dice.forEach((dice) => {
+
+  });
 
 
   return arrayOfResults;
 };
+
+DiceFormula.prototype.roll = function() {
+  let total = this.mod;
+  this.dice.forEach((dice) =>{
+    total += dice.roll;
+  });
+  return total;
+}
 
 function Dice(sides) {
   this.sides = sides
