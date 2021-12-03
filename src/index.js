@@ -31,9 +31,7 @@ DiceFormula.prototype.possibleResults = function() {
   let diceExpanded = [];
   this.dice.forEach((die, index) => {
     diceExpanded[index] = [];
-    console.log(die);
     for (let i = 1; i <= die.sides; i++) {
-      console.log(i + this.mod);
       diceExpanded[index][i - 1] = i + this.mod;
     }
   });
