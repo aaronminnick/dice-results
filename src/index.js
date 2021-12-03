@@ -7,7 +7,8 @@ function DiceFormula(formulaString) {
   arrayDice.forEach(element => {
     let count = 1;
     if (element.match(/\d*(?=d)/)[0]) {count = element.match(/\d*(?=d)/)[0]}
-    let sides = element.match(/d\d+/)[0];
+    let sides = element.match(/(?<=d)\d+/)[0];
+    console.log(sides);
     for (let i = 1; i <= count; i++) {
       arrayParsed.push(new Die(sides))
     }
@@ -26,11 +27,32 @@ function DiceFormula(formulaString) {
 
 DiceFormula.prototype.possibleResults = function() {
   let arrayOfResults = [];
+
+  let diceExpanded = [];
+  this.dice.forEach((die, index) => {
+    diceExpanded[index] = [];
+    console.log(die);
+    for (let i = 1; i <= die.sides; i++) {
+      console.log(i + this.mod);
+      diceExpanded[index][i - 1] = i + this.mod;
+    }
+  });
+  console.log(diceExpanded);
+
+
+  return arrayOfResults;
+};
+
+DiceFormula.prototype.possibleResults = function() {
+  let arrayOfResults = [];
   let mod = 0;
 
   let diceExpanded = [];
-  this.dice.forEach((die) => {
-
+  this.dice.forEach((die, index) => {
+    diceExpanded[index] = [];
+    for (let i = 1; i <= die.sides; i++) {
+      diceExpanded[index][i - 1] = i;
+    }
   });
 
 
