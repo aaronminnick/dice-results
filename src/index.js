@@ -43,16 +43,29 @@ DiceFormula.prototype.possibleResults = function() {
 
 DiceFormula.prototype.possibleResults = function() {
   let arrayOfResults = [];
-  let mod = 0;
 
   let diceExpanded = [];
   this.dice.forEach((die, index) => {
-    diceExpanded[index] = [];
+    diceExpanded.push([]);
     for (let i = 1; i <= die.sides; i++) {
-      diceExpanded[index][i - 1] = i;
+      diceExpanded[index].push(i);
     }
   });
 
+  function recurse(currentDice, array) {
+    let localArray = [];
+    for (let i = 0; i <= diceExpanded[currentDice].length-1; i++) {
+      localArray.push(diceExpanded[currentDice][i]);
+      if (diceExpanded[currentDice + 1]) {
+        recurse(currentDice + 1, array.concat(localArray));
+      } else {
+        arrayOfResults.push(array.concat(localArray));
+      }
+      localArray.pop();
+    }
+  }
+
+  recurse(0, []);
 
   return arrayOfResults;
 };
