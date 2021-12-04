@@ -8,7 +8,6 @@ function DiceFormula(formulaString) {
     let count = 1;
     if (element.match(/\d*(?=d)/)[0]) {count = element.match(/\d*(?=d)/)[0]}
     let sides = element.match(/(?<=d)\d+/)[0];
-    console.log(sides);
     for (let i = 1; i <= count; i++) {
       arrayParsed.push(new Die(sides))
     }
@@ -26,24 +25,6 @@ function DiceFormula(formulaString) {
 }
 
 DiceFormula.prototype.possibleResults = function() {
-  let arrayOfResults = [];
-
-  let diceExpanded = [];
-  this.dice.forEach((die, index) => {
-    diceExpanded[index] = [];
-    for (let i = 1; i <= die.sides; i++) {
-      diceExpanded[index][i - 1] = i + this.mod;
-    }
-  });
-  console.log(diceExpanded);
-
-
-  return arrayOfResults;
-};
-
-DiceFormula.prototype.possibleResults = function() {
-  let arrayOfResults = [];
-
   let diceExpanded = [];
   this.dice.forEach((die, index) => {
     diceExpanded.push([]);
@@ -59,13 +40,19 @@ DiceFormula.prototype.possibleResults = function() {
       if (diceExpanded[currentDice + 1]) {
         recurse(currentDice + 1, array.concat(localArray));
       } else {
-        arrayOfResults.push(array.concat(localArray));
+        arrayOfCombos.push(array.concat(localArray));
       }
       localArray.pop();
     }
   }
 
+  let arrayOfCombos = [];
   recurse(0, []);
+
+  let arrayOfResults = arrayOfCombos.map((combo) => {
+    combo = combo.reduce((a, b) => a + b);
+    return combo + this.mod;
+  });
 
   return arrayOfResults;
 };
