@@ -65,7 +65,7 @@ DiceFormula.prototype.possibleResults = function(arrayOfCombos) {
     return combo + this.mod;
   });
 
-  return arrayOfResults.sort(); // sorting is weird, need to manually define?
+  return arrayOfResults.sort((a, b) => a-b);
 };
 
 //returns an array with [0] = denominator, and consecutive indices = [result, numerator]
