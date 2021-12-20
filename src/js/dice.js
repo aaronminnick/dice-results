@@ -7,11 +7,11 @@ export function DiceFormula(formulaString) {
   arrayDice.forEach(element => {
     let count = 1;
     // get the number of dice eg 4 in 4d6
-    if (element.match(/\d*(?=d)/)[0]) {count = element.match(/\d*(?=d)/)[0]}
+    if (element.match(/\d*(?=d)/)[0]) {count = element.match(/\d*(?=d)/)[0];}
     // get the number of sides eg 6 in 4d6
     let sides = element.match(/(?<=d)\d+/)[0];
     for (let i = 1; i <= count; i++) {
-      arrayParsed.push(new Die(sides))
+      arrayParsed.push(new Die(sides));
     }
   });
 
@@ -72,7 +72,7 @@ DiceFormula.prototype.possibleResults = function(arrayOfCombos) {
 DiceFormula.prototype.resultsByFraction = function(arrayOfResults) {
   let outputArray = [arrayOfResults.length];
   let numerator = 1;
-  let result = arrayOfResults[0]
+  let result = arrayOfResults[0];
   for (let i=1; i < arrayOfResults.length; i++) {
     if (arrayOfResults[i] === result) {
       numerator++;
@@ -84,7 +84,7 @@ DiceFormula.prototype.resultsByFraction = function(arrayOfResults) {
   }
   outputArray.push([result, numerator]);
   return outputArray;
-}
+};
 
 //returns an array converting output of resultsByFraction to decimal weights
 DiceFormula.prototype.resultsByWeight = function(arrayOfResultsByFraction) {
@@ -93,19 +93,19 @@ DiceFormula.prototype.resultsByWeight = function(arrayOfResultsByFraction) {
     return [resultFraction[0], resultFraction[1]/denominator];
   });
   return outputArray;
-}
+};
 
 
 DiceFormula.prototype.roll = function() {
   let total = this.mod;
   this.dice.forEach((die) =>{
-    total += die.roll;
+    total += die.roll();
   });
   return total;
-}
+};
 
 export function Die(sides) {
-  this.sides = sides
+  this.sides = sides;
 }
 
 Die.prototype.roll = function() {
