@@ -104,6 +104,14 @@ DiceFormula.prototype.roll = function() {
   return total;
 };
 
+DiceFormula.prototype.maxSides = function() {
+  let max = 0;
+  this.dice.forEach((die) => {
+    if (die.sides > max) {max = die.sides;}
+  });
+  return max;
+};
+
 export function Die(sides) {
   this.sides = sides;
 }

@@ -4,22 +4,29 @@ export function Stacks(formula) {
   let maxSides = 0;
   let total = 0;
   formula.dice.forEach((die) => {
-    if (die.sides > maxSides) {maxSides = die.sides;}
+    let maxSides = formula.maxSides();
     let result = die.roll();
     total += result;
     outputHtml += `<div class="point-column">`;
-    for (let i = 0; i < die.sides; i++)
+    for (let i = maxSides; i > 0; i--)
     {
-      let r = result;
-      if (r > 0) {
-        outputHtml += `<div class="filled-point" />`;
-        r --;
+      if (i > die.sides) {
+        outputHtml += `<div class="no-point"></div>`
+      } else if (i > result) {
+        outputHtml += `<div class="empty-point"></div>`;
       } else {
-        outputHtml += `<div class="empty-point" />`;
+        outputHtml += `<div class="filled-point"></div>`;
       }
     }
     outputHtml += `</div>`;
-    // use result somehow? otherwise can use in place of r above
   });
-  outputHtml = `<div class="stacks-visual" style="--max-sides : ${maxSides}; --num-dice: ${formula.dice.length}">` + outputHtml + `</div><div class="stacks-visual-result>${result}</div>`;
+  outputHtml = `
+    <div class="stacks-visual" style="--max-sides : ${maxSides}; --num-dice: ${formula.dice.length}">
+      ${outputHtml}
+    </div>
+    <div class="stacks-visual-result">
+      <p>Result: ${total}</p>
+    </div>
+  `;
+  return outputHtml;
 }

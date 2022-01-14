@@ -1,0 +1,47 @@
+.stacks-visual {
+  --max-sides: ;
+  --num-dice: ;
+  --col-width: calc(40vw / var(--num-dice));
+  --point-dimension: 20px;
+}
+
+.point-column {
+  display: inline-grid;
+  width: var(--col-width);
+}
+
+.no-point, .filled-point, .empty-point {
+  height: var(--point-dimension);
+  width: var(--point-dimension);
+}
+
+.filled-point, .empty-point {
+  border: 1px black solid;
+  border-radius: 20%;
+}
+
+.filled-point {
+  animation-name: stacks-filled-anim;
+}
+
+.empty-point {
+  animation-name: stacks-empty-anim;
+}
+
+@keyframes stacks-filled-anim {
+  from {
+    background-color: rgba(255, 248, 220, 0);
+  }
+  to {
+    background-color: rgba(255, 248, 220, 1);
+  }
+}
+
+@keyframes stacks-empty-anim {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
