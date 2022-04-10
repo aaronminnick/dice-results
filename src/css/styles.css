@@ -3,6 +3,7 @@
   --num-dice: ;
   --col-width: calc(40vw / var(--num-dice));
   --point-dimension: 20px;
+  --point-margin: 5px;
 }
 
 .point-column {
@@ -13,6 +14,7 @@
 .no-point, .filled-point, .empty-point {
   height: var(--point-dimension);
   width: var(--point-dimension);
+  margin: var(--point-margin);
 }
 
 .filled-point, .empty-point {
